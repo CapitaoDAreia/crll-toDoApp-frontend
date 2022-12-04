@@ -12,6 +12,8 @@ const ContentContainerStyled = styled('section')({
     backgroundColor: 'grey',
 
     background: 'linear-gradient(360deg, #010144, #000007)',
+
+    height: '100%'
 })
 
 const ContentContainer=(props: ContentContainerProps)=>{

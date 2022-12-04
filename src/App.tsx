@@ -1,10 +1,13 @@
 import React from 'react';
+import FormContext from './Components/Form/FormContext';
 import Home from './Screens/Home/Home';
 
 function App() {
   return (
     <>
-      <Home/>
+      <FormContext>
+        <Home/>
+      </FormContext>
     </>
   );
 }

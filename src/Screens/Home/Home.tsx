@@ -8,6 +8,7 @@ const HomeContainer = styled('div')({
     color: '#ffffff',
     display: 'flex',
     flexDirection: 'column',
+    height: '100vw'
 })
 
 
