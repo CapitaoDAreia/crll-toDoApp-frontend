@@ -7,6 +7,7 @@ interface ContentContainerProps {
 const ContentContainerStyled = styled('section')({
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
     padding: '20px 10px',
     backgroundColor: 'grey',
 

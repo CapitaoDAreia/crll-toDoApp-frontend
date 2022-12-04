@@ -10,13 +10,15 @@ const HomeContainer = styled('div')({
     flexDirection: 'column',
 })
 
+
 const Home=()=>{
+        
     return(
         <HomeContainer>
             <Header />
             <ContentContainer>
                 <FormContainer />
-                <Table />
+                <Table  />
             </ContentContainer>
         </HomeContainer>
     )

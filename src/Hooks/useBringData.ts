@@ -6,7 +6,7 @@ interface UseBringDataProps {
 }
 
 const initialState: AxiosResponse<any, any> = {
-  data: {},
+  data: [{}],
   status: 0,
   statusText: "null",
   headers: {},
@@ -19,8 +19,8 @@ const useBringData = (props: UseBringDataProps) => {
 
   React.useEffect(() => {
     axios.get(props.URL, {}).then((response) => {
-      console.log(response);
       setResState(response);
+      console.log(response)
     });
   }, []);
 

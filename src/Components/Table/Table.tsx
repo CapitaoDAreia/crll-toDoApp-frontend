@@ -4,24 +4,46 @@ import {
   TableBody,
   TableRow,
   TableCell,
+  styled,
 } from "@mui/material";
 
 import useBringData from "../../Hooks/useBringData";
 
-const Table = () => {
-  const URL = `http://localhost:3004/api/todos/`;
+const StyledTable = styled(MuiTable)({
+  width: '50%',
+  padding: '15px 25px',
+  marginTop: '20px',
 
+  background: '#EEEEEE'
+})
+
+const Table = () => {
+
+  const URL = `http://localhost:3004/api/todos/`;
   const [response] = useBringData({ URL });
 
   return (
-    <MuiTable>
-      <TableHead>
-        <TableRow></TableRow>
+    <StyledTable >
+      <TableHead  >
+        <TableRow>
+          <TableCell >
+            ID
+          </TableCell>
+          <TableCell >
+            TASK
+          </TableCell>
+        </TableRow>
       </TableHead>
       <TableBody>
-        <TableRow></TableRow>
+        {
+          response.data.map((task: any, index: any)=>
+          <TableRow key={index}>
+            <TableCell>{task._id}</TableCell>
+            <TableCell>{task.description}</TableCell>
+          </TableRow>)
+        }
       </TableBody>
-    </MuiTable>
+    </StyledTable>
   );
 };
 
