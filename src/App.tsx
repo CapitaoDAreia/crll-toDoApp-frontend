@@ -1,10 +1,11 @@
 import React from 'react';
+import Home from './Screens/Home/Home';
 
 function App() {
   return (
-    <div className="App">
-      Hello World, here goes Todo App.
-    </div>
+    <>
+      <Home/>
+    </>
   );
 }
 
