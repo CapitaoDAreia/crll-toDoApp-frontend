@@ -1,15 +1,7 @@
 # Todo App
 
 ## Todo:
-- Todo and about components <br/>
-    Create Todo and About components (maybe is a good ideia create a class based component for Todo)
 
-- Create menu component
+- Mockar a tabela e terminar estilo da tabela. #Done!
 
-- Routes config with hashHistory, in a separated component
-
-- Create other components, set layout and other details
-
-- Add task event
-
-- Add onchange event on task input
+- Repensar o Hook, fazer um Hook que me entrega funções com os métodos get, post, update e delete. Essas funções estão associadas a estados e recebem parâmetros específicos.
