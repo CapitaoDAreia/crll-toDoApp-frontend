@@ -7,7 +7,7 @@ interface FormInputProps {
 }
 
 const Input = styled("input")({
-    width: '380px',
+    flex: '4',
     height: '35px',
     borderRadius: '10px 0px 0px 10px',
     border: '1px solid darkblue',

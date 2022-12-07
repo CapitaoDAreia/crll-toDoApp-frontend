@@ -1,17 +1,19 @@
 import {styled} from '@mui/material'
 
-const HeaderContainer = styled('div')({
+const HeaderContainer = styled('h1')({
     backgroundColor: '#000000',
     color: '#ffffff',
     padding: '20px 10px',
     textAlign: 'center',
-    fontSize: '20px'
+    fontSize: '1.6rem',
+    width: '100%',
+    marginBottom: '30px'
 })
 
 const Header=()=>{
     return(
         <HeaderContainer>
-            Header Component
+            TASKER | TODO APP
         </HeaderContainer>
     )
 }

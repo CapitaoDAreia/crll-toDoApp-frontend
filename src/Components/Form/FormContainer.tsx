@@ -11,7 +11,11 @@ const FormContainerStyled = styled("div")({
 });
 
 const Form = styled("form")({
-    padding: '10px 20px',
+    padding: '10px 0px',
+    width: '50%',
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: '20px'
 });
 
 const FormContainer = () => {

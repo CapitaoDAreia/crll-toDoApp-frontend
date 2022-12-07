@@ -11,13 +11,13 @@ import { CheckIcon, TrashIcon, UnCheckIcon } from "../../Assets/SvgIcons";
 import useBringData from "../../Hooks/useBringData";
 
 const StyledTable = styled(MuiTable)({
-  width: "50%",
-  height: '300px',
+  width: "100%",
+  height: "300px",
   padding: "15px 25px",
   marginTop: "20px",
 
   background: "#EEEEEE",
-  overflowY: 'scroll'
+  overflowY: "scroll",
 });
 
 const StyledTableCell = styled(TableCell)({
@@ -28,18 +28,30 @@ const StyledTableCell = styled(TableCell)({
 
 const StyledButton = styled("button")({
   border: `1px solid black`,
-  borderRadius: '50%',
-  padding: '3px',
+  borderRadius: "50%",
+  padding: "3px",
   display: "inline",
-  '&: hover':{
-    cursor: 'pointer'
-  }
+  "&: hover": {
+    cursor: "pointer",
+  },
 });
 
-const StyledButtonsContainer = styled('div')({
+const StyledButtonsContainer = styled("div")({
+  display: "flex",
+  gap: "10px",
+});
+
+const StyledTableContainer = styled("div")({
+  width: '50%',
+  maxHeight: "400px",
   display: 'flex',
-  gap: '10px'
-})
+  justifyContent: 'center',
+
+  overflowY: 'scroll',
+  background: "#EEEEEE",
+  padding: '10px',
+  borderRadius: '10px',
+});
 
 const Table = () => {
   const URL = `http://localhost:3004/api/todos/`;
@@ -47,45 +59,49 @@ const Table = () => {
   console.log(response.data);
 
   return (
-    <StyledTable>
-      <TableHead>
-        <TableRow>
-          <TableCell><h2>TASKS</h2></TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {response.data.map((task: any, index: any) => (
-          <TableRow key={index}>
-            <StyledTableCell
-              style={task.done ? {textDecoration: 'line-through'}: {}}
-            >
-              {task.description}{" "}
-              {task.done === false ? (
-                <StyledButtonsContainer>
-                  <StyledButton>
-                    <CheckIcon />
-                  </StyledButton>
-
-                  <StyledButton>
-                    <TrashIcon />
-                  </StyledButton>
-                </StyledButtonsContainer>
-              ) : (
-                <StyledButtonsContainer>
-                  <StyledButton>
-                    <UnCheckIcon />
-                  </StyledButton>
-
-                  <StyledButton>
-                    <TrashIcon />
-                  </StyledButton>
-                </StyledButtonsContainer>
-              )}
-            </StyledTableCell>
+    <StyledTableContainer>
+      <StyledTable>
+        <TableHead>
+          <TableRow>
+            <TableCell>
+              <h2>TASKS</h2>
+            </TableCell>
           </TableRow>
-        ))}
-      </TableBody>
-    </StyledTable>
+        </TableHead>
+        <TableBody>
+          {response.data.map((task: any, index: any) => (
+            <TableRow key={index}>
+              <StyledTableCell
+                style={task.done ? { textDecoration: "line-through" } : {}}
+              >
+                {task.description}{" "}
+                {task.done === false ? (
+                  <StyledButtonsContainer>
+                    <StyledButton>
+                      <CheckIcon />
+                    </StyledButton>
+
+                    <StyledButton>
+                      <TrashIcon />
+                    </StyledButton>
+                  </StyledButtonsContainer>
+                ) : (
+                  <StyledButtonsContainer>
+                    <StyledButton>
+                      <UnCheckIcon />
+                    </StyledButton>
+
+                    <StyledButton>
+                      <TrashIcon />
+                    </StyledButton>
+                  </StyledButtonsContainer>
+                )}
+              </StyledTableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </StyledTable>
+    </StyledTableContainer>
   );
 };
 

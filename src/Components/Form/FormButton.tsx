@@ -5,7 +5,7 @@ import { GlobalFormContext } from "./FormContext";
 
 const Button = styled("button")({
   height: "35px",
-  width: "80px",
+  flex: '1',
   borderRadius: "0px 10px 10px 0px",
   border: "1px solid darkblue",
   background: "darkblue",
