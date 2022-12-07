@@ -9,6 +9,7 @@ import {
 import { CheckIcon, TrashIcon, UnCheckIcon } from "../../Assets/SvgIcons";
 
 import useBringData from "../../Hooks/useBringData";
+import useDeleteTask from "../../Hooks/useDeleteTask";
 import useUpdateTask from "../../Hooks/useUpdateTask";
 
 const StyledTable = styled(MuiTable)({
@@ -44,7 +45,7 @@ const StyledButtonsContainer = styled("div")({
 
 const StyledTableContainer = styled("div")({
   width: "50%",
-  maxHeight: "400px",
+  height: "400px",
   display: "flex",
   justifyContent: "center",
 
@@ -57,7 +58,8 @@ const StyledTableContainer = styled("div")({
 const Table = () => {
   const URL = `http://localhost:3004/api/todos/`;
   const [response] = useBringData({ URL });
-  const [funcUpdateTaskStatus] = useUpdateTask();
+  const { statusUpdate, updateTask } = useUpdateTask();
+  const { statusDelete, deleteTask } = useDeleteTask();
 
   return (
     <StyledTableContainer>
@@ -82,7 +84,7 @@ const Table = () => {
                   <StyledButtonsContainer>
                     <StyledButton
                       onClick={() => {
-                        funcUpdateTaskStatus({
+                        updateTask({
                           URL,
                           id: task._id,
                           params: { done: true },
@@ -93,7 +95,12 @@ const Table = () => {
                       <CheckIcon />
                     </StyledButton>
 
-                    <StyledButton>
+                    <StyledButton
+                      onClick={() => {
+                        deleteTask({ URL, id: task._id });
+                        window.location.reload();
+                      }}
+                    >
                       <TrashIcon />
                     </StyledButton>
                   </StyledButtonsContainer>
@@ -101,7 +108,7 @@ const Table = () => {
                   <StyledButtonsContainer>
                     <StyledButton
                       onClick={() => {
-                        funcUpdateTaskStatus({
+                        updateTask({
                           URL,
                           id: task._id,
                           params: { done: false },
@@ -112,7 +119,12 @@ const Table = () => {
                       <UnCheckIcon />
                     </StyledButton>
 
-                    <StyledButton>
+                    <StyledButton
+                      onClick={() => {
+                        deleteTask({ URL, id: task._id });
+                        window.location.reload();
+                      }}
+                    >
                       <TrashIcon />
                     </StyledButton>
                   </StyledButtonsContainer>

@@ -10,13 +10,15 @@ interface useUpdateDataProps {
 }
 
 const useUpdateTask = () => {
-  function updateData(props: useUpdateDataProps) {
+  const [statusUpdate, setStatusUpdate] = React.useState(0);
+
+  function updateTask(props: useUpdateDataProps) {
     axios
       .put(`${props.URL}${props.id}`, props.params)
-      .then((resp) => console.log(resp));
+      .then((resp) => setStatusUpdate(resp.status));
   }
 
-  return [updateData];
+  return { statusUpdate, updateTask };
 };
 
 export default useUpdateTask;
