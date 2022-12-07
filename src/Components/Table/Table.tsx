@@ -9,6 +9,7 @@ import {
 import { CheckIcon, TrashIcon, UnCheckIcon } from "../../Assets/SvgIcons";
 
 import useBringData from "../../Hooks/useBringData";
+import useUpdateTask from "../../Hooks/useUpdateTask";
 
 const StyledTable = styled(MuiTable)({
   width: "100%",
@@ -42,21 +43,21 @@ const StyledButtonsContainer = styled("div")({
 });
 
 const StyledTableContainer = styled("div")({
-  width: '50%',
+  width: "50%",
   maxHeight: "400px",
-  display: 'flex',
-  justifyContent: 'center',
+  display: "flex",
+  justifyContent: "center",
 
-  overflowY: 'scroll',
+  overflowY: "scroll",
   background: "#EEEEEE",
-  padding: '10px',
-  borderRadius: '10px',
+  padding: "10px",
+  borderRadius: "10px",
 });
 
 const Table = () => {
   const URL = `http://localhost:3004/api/todos/`;
   const [response] = useBringData({ URL });
-  console.log(response.data);
+  const [funcUpdateTaskStatus] = useUpdateTask();
 
   return (
     <StyledTableContainer>
@@ -72,12 +73,23 @@ const Table = () => {
           {response.data.map((task: any, index: any) => (
             <TableRow key={index}>
               <StyledTableCell
-                style={task.done ? { textDecoration: "line-through" } : {}}
+                style={
+                  task.done === true ? { textDecoration: "line-through" } : {}
+                }
               >
                 {task.description}{" "}
                 {task.done === false ? (
                   <StyledButtonsContainer>
-                    <StyledButton>
+                    <StyledButton
+                      onClick={() => {
+                        funcUpdateTaskStatus({
+                          URL,
+                          id: task._id,
+                          params: { done: true },
+                        });
+                        window.location.reload();
+                      }}
+                    >
                       <CheckIcon />
                     </StyledButton>
 
@@ -87,7 +99,16 @@ const Table = () => {
                   </StyledButtonsContainer>
                 ) : (
                   <StyledButtonsContainer>
-                    <StyledButton>
+                    <StyledButton
+                      onClick={() => {
+                        funcUpdateTaskStatus({
+                          URL,
+                          id: task._id,
+                          params: { done: false },
+                        });
+                        window.location.reload();
+                      }}
+                    >
                       <UnCheckIcon />
                     </StyledButton>
 
