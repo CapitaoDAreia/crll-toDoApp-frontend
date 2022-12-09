@@ -1,11 +1,9 @@
 import { styled } from "@mui/material";
-import axios from "axios";
-import React from "react";
-import { GlobalFormContext } from "./FormContext";
+import usePostData from "../../Hooks/usePostData";
 
 const Button = styled("button")({
   height: "35px",
-  flex: '1',
+  flex: "1",
   borderRadius: "0px 10px 10px 0px",
   border: "1px solid darkblue",
   background: "darkblue",
@@ -22,13 +20,7 @@ interface ButtonProps {
 }
 
 const FormButton = (props: ButtonProps) => {
-  const { formtext, URL } = React.useContext(GlobalFormContext);
-
-  function handlePostFormText() {
-    axios
-      .post(URL, { description: formtext })
-      .then((resp) => console.log(resp.status));
-  }
+  const [handlePostFormText] = usePostData();
 
   return <Button onClick={() => handlePostFormText()}>{props.flag}</Button>;
 };

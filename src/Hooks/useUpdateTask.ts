@@ -10,7 +10,7 @@ interface useUpdateDataProps {
 }
 
 const useUpdateTask = () => {
-  const [statusUpdate, setStatusUpdate] = React.useState(0);
+  const [_statusUpdate, setStatusUpdate] = React.useState(0);
 
   function updateTask(props: useUpdateDataProps) {
     axios
@@ -18,7 +18,7 @@ const useUpdateTask = () => {
       .then((resp) => setStatusUpdate(resp.status));
   }
 
-  return { statusUpdate, updateTask };
+  return { _statusUpdate, updateTask };
 };
 
 export default useUpdateTask;

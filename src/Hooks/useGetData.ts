@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import React from "react";
 
-interface UseBringDataProps {
+interface UseGetDataProps {
   URL: string;
 }
 
@@ -13,18 +13,15 @@ const initialState: AxiosResponse<any, any> = {
   config: {},
 };
 
-const useBringData = (props: UseBringDataProps) => {
-  const [resState, setResState] =
-    React.useState<AxiosResponse<any, any>>(initialState);
-
+const useGetData = (props: UseGetDataProps) => {
+  const [resState, setResState] = React.useState<AxiosResponse<any, any>>(initialState);
   React.useEffect(() => {
     axios.get(props.URL, {}).then((response) => {
       setResState(response);
-      console.log(response)
     });
   }, []);
 
   return [resState];
 };
 
-export default useBringData;
+export default useGetData;

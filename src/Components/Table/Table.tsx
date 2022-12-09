@@ -8,9 +8,10 @@ import {
 } from "@mui/material";
 import { CheckIcon, TrashIcon, UnCheckIcon } from "../../Assets/SvgIcons";
 
-import useBringData from "../../Hooks/useBringData";
+import useGetData from "../../Hooks/useGetData";
 import useDeleteTask from "../../Hooks/useDeleteTask";
 import useUpdateTask from "../../Hooks/useUpdateTask";
+import React from "react";
 
 const StyledTable = styled(MuiTable)({
   width: "100%",
@@ -57,9 +58,76 @@ const StyledTableContainer = styled("div")({
 
 const Table = () => {
   const URL = `http://localhost:3004/api/todos/`;
-  const [response] = useBringData({ URL });
-  const { statusUpdate, updateTask } = useUpdateTask();
-  const { statusDelete, deleteTask } = useDeleteTask();
+  const [response] = useGetData({ URL });
+  const { updateTask } = useUpdateTask();
+  const { deleteTask } = useDeleteTask();
+
+  const handleRenderTableBody = () => {
+    return (
+      <TableBody>
+        {response.data.map((task: any, index: any) => (
+          <TableRow key={index}>
+            <StyledTableCell
+              style={
+                task.done === true ? { textDecoration: "line-through" } : {}
+              }
+            >
+              {task.description}{" "}
+              {task.done === false ? (
+                <StyledButtonsContainer>
+                  <StyledButton
+                    onClick={() => {
+                      updateTask({
+                        URL,
+                        id: task._id,
+                        params: { done: true },
+                      });
+                      window.location.reload();
+                    }}
+                  >
+                    <CheckIcon />
+                  </StyledButton>
+
+                  <StyledButton
+                    onClick={() => {
+                      deleteTask({ URL, id: task._id });
+                      window.location.reload();
+                    }}
+                  >
+                    <TrashIcon />
+                  </StyledButton>
+                </StyledButtonsContainer>
+              ) : (
+                <StyledButtonsContainer>
+                  <StyledButton
+                    onClick={() => {
+                      updateTask({
+                        URL,
+                        id: task._id,
+                        params: { done: false },
+                      });
+                      window.location.reload();
+                    }}
+                  >
+                    <UnCheckIcon />
+                  </StyledButton>
+
+                  <StyledButton
+                    onClick={() => {
+                      deleteTask({ URL, id: task._id });
+                      window.location.reload();
+                    }}
+                  >
+                    <TrashIcon />
+                  </StyledButton>
+                </StyledButtonsContainer>
+              )}
+            </StyledTableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    );
+  };
 
   return (
     <StyledTableContainer>
@@ -71,68 +139,7 @@ const Table = () => {
             </TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          {response.data.map((task: any, index: any) => (
-            <TableRow key={index}>
-              <StyledTableCell
-                style={
-                  task.done === true ? { textDecoration: "line-through" } : {}
-                }
-              >
-                {task.description}{" "}
-                {task.done === false ? (
-                  <StyledButtonsContainer>
-                    <StyledButton
-                      onClick={() => {
-                        updateTask({
-                          URL,
-                          id: task._id,
-                          params: { done: true },
-                        });
-                        window.location.reload();
-                      }}
-                    >
-                      <CheckIcon />
-                    </StyledButton>
-
-                    <StyledButton
-                      onClick={() => {
-                        deleteTask({ URL, id: task._id });
-                        window.location.reload();
-                      }}
-                    >
-                      <TrashIcon />
-                    </StyledButton>
-                  </StyledButtonsContainer>
-                ) : (
-                  <StyledButtonsContainer>
-                    <StyledButton
-                      onClick={() => {
-                        updateTask({
-                          URL,
-                          id: task._id,
-                          params: { done: false },
-                        });
-                        window.location.reload();
-                      }}
-                    >
-                      <UnCheckIcon />
-                    </StyledButton>
-
-                    <StyledButton
-                      onClick={() => {
-                        deleteTask({ URL, id: task._id });
-                        window.location.reload();
-                      }}
-                    >
-                      <TrashIcon />
-                    </StyledButton>
-                  </StyledButtonsContainer>
-                )}
-              </StyledTableCell>
-            </TableRow>
-          ))}
-        </TableBody>
+        {handleRenderTableBody()}
       </StyledTable>
     </StyledTableContainer>
   );
